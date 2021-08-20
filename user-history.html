@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <h1>Product View History</h1>
+    </div>
+    {% for cart in object_list %} <div class="col ">
+        {{forloop.count}}
+        {% include 'products/snippets/cart.html' with  instance=obj.content_object %}
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

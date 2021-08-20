@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% with request.GET.q as query %}{# variable declear query#}
+{% endwith %}
+{% block content %}
+
+<div class="row mb-3">
+
+    {% if query %}
+    <div class="col-12  ">
+        Result for <b>{{query}}</b>
+        <hr />
+    </div>
+    {% else %}
+    <div class="col-12 col-md-6 mx-auto py-5">
+        {% include 'search/snippets/search-form.html' %}
+    </div>
+    <div class="col-12">
+        <hr />
+    </div>
+
+    {% endif %}
+</div>
+
+<div class="row">
+
+    {% for obj in object_list %}
+    <div class="col">
+
+        {% include 'products/snippets/cart.html' with  instance=obj %}
+
+        {% if forloop.counter|divisibleby:3 %}
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <hr />
+    </div>
+    <!--- closing the div row  and col-->
+    {% elif forloop.counter|divisibleby:8 %}
+</div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <hr />
+    </div>
+    <!--- closing the div row  and col-->
+
+    {% else %}
+</div>
+
+{% endif %}
+<!-- introduction to cycle  -->
+
+<!-- {% cycle '</div></div> <div class="row">' '' '' ''%} -->
+
+{% endfor %}
+
+</div>
+
+{% endblock %}

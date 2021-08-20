@@ -1,0 +1,10 @@
+
+    <form class="form ml-auto search-form" method="GET" action="{% url 'search_query' %}">
+        <div class="input-group">
+            <input type="text" name="q" placeholder="Search..." class="form-control" aria-label=" Search" value="{{ request.GET.q}}">
+            <span class="input-group-btn">
+            <button class=" btn btn-outline-success " type="submit">
+                <li class=" nav-link fas fa-search text-danger " style="width: 20px; height: 15px;"></li></button>
+            </span>
+        </div>
+    </form>

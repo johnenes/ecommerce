@@ -1,0 +1,71 @@
+{% include 'base.html' %}
+{% block content %}
+<div class="container">
+    <div class="row my-5">
+        <div class='col-12'>
+            <h1 class="text-center">Sales Data</h1>
+        </div>
+    </div>
+</div>
+<hr />
+
+<div class="container">
+    <div class="row my-4">
+        <div class="col-12">
+            <h3>Today Sales</h3>
+            <hr />
+        </div>
+
+        <div class="col">
+            <p><strong>Recent Total : #{{ today.recent_data.order_total__sum}}</strong></p>
+            <ol>
+                {% for order in  today.recent|slice:':5' %}
+                <li class="my-3">Order # {{order.order_id}}<br />
+                    {{order.order_total}}<br />
+                    {{order.updated|timesince}}ago</li>
+                {% endfor %}
+            </ol>
+            <h3>This week's Sales</h3>
+            <hr>
+            <p><strong>Recent Total :
+                    {% if this_week.recent_data.order_total__sum %}#
+                    {{ this_week.recent_data.order_total__sum}}{% endif %}
+            </p></strong>
+            <!-- <p><strong> Shipped Total: # {{this_week.shipped_data.order_total__sum}}</strong></p>
+            <p><strong>Paid Total: # {{this_week.paid_data.order_total__sum}}</strong></p> -->
+            <ol>
+                {% for order in this_week.recent|slice:':5'  %}
+                <li class="my-3">Order # {{order.order_id}}<br />
+                    {{order.order_total}}<br />
+                    {{order.updated|timesince}}ago</li>
+                {% endfor %}
+            </ol>
+        </div>
+        <div class="col">
+            <canvas class="render-chart" id="thisWeekSales" data-type="week" width="400" height="400"></canvas>
+        </div>
+    </div>
+</div>
+
+<hr />
+<div class="container">
+    <div class="row my-5">
+        <div class="col-12">
+            <h1>Previous Week sales</h1>
+        </div>
+        <div class="col">
+            <p> <strong>Recent Total : {% if  last_four_week.recent_data.order_total__sum %}
+                    # {{ last_four_week.recent_data.order_total__sum}}{% endif %}</strong></p>
+            <p><strong>Shipped Total: {% if  last_four_week.shipped_data.order_total__sum %}
+                    #{{ last_four_week.shipped_data.order_total__sum}}{% endif %}</strong></p>
+
+            <p><strong>Paid Total:
+                    {% if  last_four_week.paid_data.order_total__sum %}
+                    #{{last_four_week.paid_data.order_total__sum}}{% endif %}</strong></p>
+        </div>
+        <div class='col'>
+            <canvas class="render-chart" id="fourWeeks" data-type=4weeks width="100" height="100"></canvas>
+        </div>
+    </div>
+</div>
+{% endblock%}
